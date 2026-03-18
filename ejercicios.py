@@ -502,18 +502,18 @@ def son_anagramas(palabra1, palabra2):
     if len(p1) != len(p2):# Si no tienen la misma longitud no son anagramas
         return False
 
-    def contar_letras(cadena):# Función interna para contar cuántas veces sale cada letra
-        frecuencias = {}
-        for letra in cadena:
-            frecuencias[letra] = frecuencias.get(letra, 0) + 1   # Si la letra ya está, sumamos 1; si no, la iniciamos en 1
-        return frecuencias
+def contar_letras(cadena):# Función interna para contar cuántas veces sale cada letra
+    frecuencias = {}
+    for letra in cadena:
+        frecuencias[letra] = frecuencias.get(letra, 0) + 1   # Si la letra ya está, sumamos 1; si no, la iniciamos en 1
+    return frecuencias
 
-    # Obtengo los diccionarios de frecuencias de ambas palabras
-    conteo1 = contar_letras(p1)
-    conteo2 = contar_letras(p2)
+# Obtengo los diccionarios de frecuencias de ambas palabras
+conteo1 = contar_letras(p1)
+conteo2 = contar_letras(p2)
 
 
-    return conteo1 == conteo2 # Comparo los dos diccionarios con '=='
+return conteo1 == conteo2 # Comparo los dos diccionarios con '=='
 
 # Pruebas de funcionamiento
 print(f"¿'Gato' y 'Gota' son anagramas?: {son_anagramas('Gato', 'Gota')}")
@@ -524,13 +524,13 @@ print(f"¿'Parecido' y 'Diferente' son anagramas?: {son_anagramas('Parecido', 'D
 
 def buscar_en_lista():
 
-        entrada = input("Introduce una lista de nombres separados por comas: ")
-        lista_nombres = [nombre.strip() for nombre in entrada.split(",")]
-        nombre_a_buscar = input("¿Qué nombre quieres buscar?: ").strip()
-        if nombre_a_buscar in lista_nombres:
-            print(f"El nombre '{nombre_a_buscar}' fue encontrado en la lista.")
-        else:
-            (f"El nombre '{nombre_a_buscar}' no existe en la lista proporcionada.")
+    entrada = input("Introduce una lista de nombres separados por comas: ")
+    lista_nombres = [nombre.strip() for nombre in entrada.split(",")]
+    nombre_a_buscar = input("¿Qué nombre quieres buscar?: ").strip()
+    if nombre_a_buscar in lista_nombres:
+        print(f"El nombre '{nombre_a_buscar}' fue encontrado en la lista.")
+    else:
+        (f"El nombre '{nombre_a_buscar}' no existe en la lista proporcionada.")
 
 
 
