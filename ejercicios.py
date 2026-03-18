@@ -385,17 +385,159 @@ print(f"Lista de números: {mi_lista}")
 print(f"El producto total es: {resultado}")
 
 #23- Concatena una lista de palabras. Usa la función reduce(). 
+def concatenar_palabras(lista_palabras):
+    resultado = reduce(lambda acumulado, siguiente: acumulado + " " + siguiente, lista_palabras)# Lambda toma el 'acumulado' (la frase que llevamos) y le suma un espacio y la 'siguiente' palabra.
+    return resultado
+
+# Datos de prueba
+palabras = ["Esta", "es", "una", "lista", "de", "palabras"]
+
+# Ejecución
+frase_final = concatenar_palabras(palabras)
+
+print(f"Lista original: {palabras}")
+print(f"Frase concatenada: '{frase_final}'")
+
+
+#24- Calcula la diferencia total en los valores de una lista. Usa la función reduce().
+
+def calcular_diferencia_total(numeros):
+    resultado = reduce(lambda acumulado, siguiente: acumulado - siguiente, numeros) # La lambda resta el 'siguiente' valor al 'acumulado'
+    return resultado
+
+# Datos de prueba
+lista_numerica = [100, 50, 20, 5] # El cálculo será: ((100 - 50) - 20) - 5 = 25
+
+resultado_final = calcular_diferencia_total(lista_numerica)
+
+print(f"Lista original: {lista_numerica}")
+print(f"Diferencia total acumulada: {resultado_final}")
+
+#25- Crea una función que cuente el número de caracteres en una cadena de texto dada.
+def contar_caracteres(cadena):
+    total = len(cadena)
+    return total
+
+# Ejemplo de prueba
+texto_usuario = "Texto de prueba con 33 caracteres"
+resultado = contar_caracteres(texto_usuario)
+
+print(f"La cadena: '{texto_usuario}'")
+print(f"Tiene un total de {resultado} caracteres.")
+
+#26- Crea una función lambda que calcule el resto de la división entre dos números dados.
+
+calcular_resto = lambda a, b: a % b # Definición de la función lambda que calcula el resto de la división de 2 números.
+
+# Datos de prueba
+num1 = 10
+num2 = 3
+
+# Ejecución
+resultado = calcular_resto(num1, num2)
+
+print(f"El resto de dividir {num1} entre {num2} es: {resultado}")
+
+
+#27- Crea una función que calcule el promedio de una lista de números.
+def calcular_promedio(lista_numeros):
+    suma_total = sum(lista_numeros) # Se suman todos los elementos y se dividen por la cantidad de elementos
+    cantidad = len(lista_numeros)
+    promedio = suma_total / cantidad
+    return promedio
+
+# Datos de prueba
+mis_puntuaciones = [10, 20, 30, 40, 50]
+resultado = calcular_promedio(mis_puntuaciones)
+
+print(f"Lista de números: {mis_puntuaciones}")
+print(f"El promedio es: {resultado}")
+
+
+#28- Crea una función que busque y devuelva el primer elemento duplicado en una lista dada.
+def buscar_primer_duplicado(lista):
+
+    vistos = set() # Se crea un conjunto vacío para ir guardando los elementos que ya hemos visto
+
+    for elemento in lista: # Si el elemento ya está en el conjunto 'vistos', es que está duplicado
+        if elemento in vistos:
+            return elemento
+        vistos.add(elemento)  # Si no está, lo añadimos al conjunto y seguimos con el siguiente
+
+
+# Datos de prueba
+lista_con_duplicados = [1, 5, 3, 2, 5, 8, 3] # En este caso, el 5 aparece antes que el 3 como repetido.
+resultado = buscar_primer_duplicado(lista_con_duplicados)
+print(f"El primer elemento duplicado es: {resultado}")
+
+
+#29- Crea una función que convierta una variable en una cadena de texto y enmascare todos los caracteres con el carácter '#' excepto los últimos cuatro.
+def enmascarar_dato(variable):
+    texto = str(variable)# Convertimos a string por si recibimos un int o float
+    longitud = len(texto)
+
+    visible = texto[-4:] # Se crea una cadena de '#' con la longitud total menos los 4 últimos
+    oculto = "#" * (longitud - 4) # Se le concatena los últimos 4 caracteres
+
+    return oculto + visible
+
+
+# Pruebas de funcionamiento
+tarjeta = 12345678901234567890
+telefono = "912345678"
+
+print(f"Tarjeta original: {tarjeta}")
+print(f"Tarjeta enmascarada: {enmascarar_dato(tarjeta)}")
+
+print(f"\nTeléfono original: {telefono}")
+print(f"Teléfono enmascarado: {enmascarar_dato(telefono)}")
+
+
+#30- Crea una función que determine si dos palabras son anagramas, es decir, si están formadas por las mismas letras pero en diferente orden.
+
+def son_anagramas(palabra1, palabra2):
+    p1 = palabra1.replace(" ", "").lower() # Primero, normalizo: quito espacios y paso a minúsculas
+    p2 = palabra2.replace(" ", "").lower()
+
+    if len(p1) != len(p2):# Si no tienen la misma longitud no son anagramas
+        return False
+
+    def contar_letras(cadena):# Función interna para contar cuántas veces sale cada letra
+        frecuencias = {}
+        for letra in cadena:
+            frecuencias[letra] = frecuencias.get(letra, 0) + 1   # Si la letra ya está, sumamos 1; si no, la iniciamos en 1
+        return frecuencias
+
+    # Obtengo los diccionarios de frecuencias de ambas palabras
+    conteo1 = contar_letras(p1)
+    conteo2 = contar_letras(p2)
+
+
+    return conteo1 == conteo2 # Comparo los dos diccionarios con '=='
+
+# Pruebas de funcionamiento
+print(f"¿'Gato' y 'Gota' son anagramas?: {son_anagramas('Gato', 'Gota')}")
+print(f"¿'Parecido' y 'Diferente' son anagramas?: {son_anagramas('Parecido', 'Diferente')}")
+
+#31- Crea una función que solicite al usuario ingresar una lista de nombres y luego un nombre para buscar en esa lista.
+# Si el nombre está en la lista, imprime un mensaje indicando que fue encontrado; de lo contrario, lanza una excepción.
+
+def buscar_en_lista():
+
+        entrada = input("Introduce una lista de nombres separados por comas: ")
+        lista_nombres = [nombre.strip() for nombre in entrada.split(",")]
+        nombre_a_buscar = input("¿Qué nombre quieres buscar?: ").strip()
+        if nombre_a_buscar in lista_nombres:
+            print(f"El nombre '{nombre_a_buscar}' fue encontrado en la lista.")
+        else:
+            (f"El nombre '{nombre_a_buscar}' no existe en la lista proporcionada.")
 
 
 
+# Ejecución de la función
+buscar_en_lista()
 
-
-
-
-
-
-
-
+#faltan recoger las excepciones
 '''
 Ejercicios comentados hasta aquí (para no tener que usar el input cada vez que lo ejecuto): 8, 11, 12
 '''
