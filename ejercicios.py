@@ -502,44 +502,164 @@ def son_anagramas(palabra1, palabra2):
     if len(p1) != len(p2):# Si no tienen la misma longitud no son anagramas
         return False
 
-def contar_letras(cadena):# Función interna para contar cuántas veces sale cada letra
-    frecuencias = {}
-    for letra in cadena:
-        frecuencias[letra] = frecuencias.get(letra, 0) + 1   # Si la letra ya está, sumamos 1; si no, la iniciamos en 1
-    return frecuencias
-
-# Obtengo los diccionarios de frecuencias de ambas palabras
-conteo1 = contar_letras(p1)
-conteo2 = contar_letras(p2)
-
-
-return conteo1 == conteo2 # Comparo los dos diccionarios con '=='
+    def contar_letras(cadena):# Función interna para contar cuántas veces sale cada letra
+        frecuencias = {}
+        for letra in cadena:
+            frecuencias[letra] = frecuencias.get(letra, 0) + 1   # Si la letra ya está, sumamos 1; si no, la iniciamos en 1
+        return frecuencias
+    conteo1 = contar_letras(p1)  # Obtengo los diccionarios de frecuencias de ambas palabras
+    conteo2 = contar_letras(p2)
+    return conteo1 == conteo2 # Comparo los dos diccionarios con '=='
 
 # Pruebas de funcionamiento
 print(f"¿'Gato' y 'Gota' son anagramas?: {son_anagramas('Gato', 'Gota')}")
 print(f"¿'Parecido' y 'Diferente' son anagramas?: {son_anagramas('Parecido', 'Diferente')}")
 
+
+'''
 #31- Crea una función que solicite al usuario ingresar una lista de nombres y luego un nombre para buscar en esa lista.
-# Si el nombre está en la lista, imprime un mensaje indicando que fue encontrado; de lo contrario, lanza una excepción.
+    # Si el nombre está en la lista, imprime un mensaje indicando que fue encontrado; de lo contrario, lanza una excepción.
 
-def buscar_en_lista():
+def buscar_nombre_en_lista():
+    entrada = input("Introduce una lista de nombres separados por comas: ") # Se pide la lista al usuario.
+    lista_nombres = [n.strip() for n in entrada.split(",")]# Se convierte la entrada en una lista y se limpian los espacios con .strip.
 
-    entrada = input("Introduce una lista de nombres separados por comas: ")
-    lista_nombres = [nombre.strip() for nombre in entrada.split(",")]
-    nombre_a_buscar = input("¿Qué nombre quieres buscar?: ").strip()
-    if nombre_a_buscar in lista_nombres:
-        print(f"El nombre '{nombre_a_buscar}' fue encontrado en la lista.")
-    else:
-        (f"El nombre '{nombre_a_buscar}' no existe en la lista proporcionada.")
+    
+    nombre_buscado = input("¿Qué nombre quieres buscar?: ").strip()# Se pide el nombre que se quiere encontrar (tambien se limpian los espacios con .strip)
 
+    try:
+        if nombre_buscado in lista_nombres:
+            print(f"El nombre '{nombre_buscado}' está en la lista.")
+        else:
+            raise Exception(f"El nombre '{nombre_buscado}' NO se encuentra en la lista.") # Si no se encuentra, se fuerza una excepción.
+            
+    except Exception as e:
+        
+        print(f"Error: {e}") # Mensaje y manejo del error.
 
+# Ejecución del programa
+buscar_nombre_en_lista()
 
-# Ejecución de la función
-buscar_en_lista()
-
-#faltan recoger las excepciones
 '''
-Ejercicios comentados hasta aquí (para no tener que usar el input cada vez que lo ejecuto): 8, 11, 12
+# 32-Crea una función que tome un nombre completo y una lista de empleados, busque el nombre en la lista y devuelva el puesto del empleado si se encuentra; 
+    # de lo contrario, devuelve un mensaje indicando que la persona no trabaja aquí. 
+    
+def buscar_puesto_empleado(nombre_completo, lista_empleados):
+    nombre_buscado = nombre_completo.strip().lower() # Se limpian los espacios y se pone en minusculas.
+
+    for empleado in lista_empleados:
+        nombre_en_lista = empleado["nombre"].strip().lower() # Se limpian los espacios y se pone en minusculas.
+        
+        if nombre_en_lista == nombre_buscado:
+            return f"El puesto de {empleado['nombre']} es: {empleado['puesto']}."
+
+    return "Esa persona no trabaja aquí." # Si el bucle termina y no lo encuentra lo indica.
+
+# Lista de empleados
+empleados_lista = [
+    {"nombre": "Elías Martínez", "puesto": "Data Analyst"},
+    {"nombre": "Luis Jorge", "puesto": "Desarrollador Senior"},
+    {"nombre": "Pepa Flores", "puesto": "Analista de Datos"},
+    {"nombre": "Pepe Cano", "puesto": "Jefe de Departamento"}
+]
+
+# Pruebas de funcionamiento
+print(buscar_puesto_empleado("Elías Martínez", empleados_lista))
+print(buscar_puesto_empleado("   luis jorge  ", empleados_lista))
+print(buscar_puesto_empleado("Jony Estoy", empleados_lista))
+
+# 33-Crea una función lambda que sume elementos correspondientes de dos listas dadas.
+
+lista_a = [1, 2, 3, 4]
+lista_b = [9, 22, 33, 43]
+
+resultado_suma_listas = map(lambda x, y: x + y, lista_a, lista_b) # se usa map(), ya que puede recibir las dos listas.
+lista_suma = list(resultado_suma_listas) # Se convierte el objeto map a una lista para ver el resultado
+
+print(f"Lista A: {lista_a}")
+print(f"Lista B: {lista_b}")
+print(f"Resultado de la suma: {lista_suma}")
+
+
+# 34-Crea la clase Arbol
+'''Define un árbol genérico con un tronco y ramas como atributos.
+Métodos disponibles: crecer_tronco, nueva_rama, crecer_ramas, quitar_rama, info_arbol.
+Código a seguir:
+Inicializar un árbol con un tronco de longitud 1 y una lista vacía de ramas.
+Implementar el método crecer_tronco para aumentar la longitud del tronco en una unidad.
+Implementar el método nueva_rama para agregar una nueva rama de longitud 1 a la lista de ramas.
+Implementar el método crecer_ramas para aumentar en una unidad la longitud de todas las ramas existentes.
+Implementar el método quitar_rama para eliminar una rama en una posición específica.
+Implementar el método info_arbol para devolver información sobre la longitud del tronco, el número de ramas y sus longitudes.
+Caso de uso:
+        a. Crear un árbol.
+        b. Hacer crecer el tronco una unidad.
+        c. Añadir una nueva rama.
+        d. Hacer crecer todas las ramas una unidad.
+        e. Añadir dos nuevas ramas.
+        f. Retirar la rama situada en la posición 2.
+        g. Obtener información sobre el árbol.
 '''
+class Arbol:
+    def __init__(self):     # a. Inicializar con tronco 1 y lista de ramas vacía
+        self.tronco = 1
+        self.ramas = []
+
+    def crecer_tronco(self):    # b. Aumentar tronco en 1
+        self.tronco += 1
+        print("El tronco ha crecido")
+
+    def info_arbol(self):
+        # g. Devolver información
+        print("\nInformación del árbol:")
+        print(f"Longitud del tronco: {self.tronco}")
+
+# Menú del usuario
+def menu():
+    mi_arbol = Arbol()  # a. Crear el árbol automáticamente al empezar
+    
+    while True:
+        print("\n¿Qué quieres hacer con el árbol?")
+        print("1. Hacer crecer el tronco")
+        print("2. Añadir una nueva rama")
+        print("3. Hacer crecer todas las ramas")
+        print("4. Retirar una rama")
+        print("5. Ver información del árbol")
+        print("6. Salir")
+        
+        opcion = input("Elige una opción (1-6): ")
+
+        if opcion == "1":
+            mi_arbol.crecer_tronco()
+        elif opcion == "2":
+            mi_arbol.nueva_rama()
+        elif opcion == "3":
+            mi_arbol.crecer_ramas()
+        elif opcion == "4":
+            mi_arbol.quitar_rama(pos)
+        elif opcion == "5":
+            mi_arbol.info_arbol()
+        elif opcion == "6":
+            print("Gracias por plantar un arbol")
+            break
+        else:
+            print("Opción no válida.")
+
+# Ejecutar el programa
+menu()
+
+
+
+
+
+
+
+
+
+'''
+Ejercicios comentados hasta aquí (para no tener que usar el input cada vez que lo ejecuto): 8, 11, 12, 31
+'''
+
+
 
 
