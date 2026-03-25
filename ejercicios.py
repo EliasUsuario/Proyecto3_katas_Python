@@ -580,7 +580,7 @@ print(f"Lista A: {lista_a}")
 print(f"Lista B: {lista_b}")
 print(f"Resultado de la suma: {lista_suma}")
 
-
+'''
 # 34-Crea la clase Arbol
 '''Define un árbol genérico con un tronco y ramas como atributos.
 Métodos disponibles: crecer_tronco, nueva_rama, crecer_ramas, quitar_rama, info_arbol.
@@ -601,34 +601,51 @@ Caso de uso:
         g. Obtener información sobre el árbol.
 '''
 class Arbol:
-    def __init__(self):     # a. Inicializar con tronco 1 y lista de ramas vacía
+    def __init__(self):     # a. Crear un árbol (Inicializar con tronco 1 y lista de ramas vacía).
         self.tronco = 1
         self.ramas = []
 
-    def crecer_tronco(self):    # b. Aumentar tronco en 1
+    def crecer_tronco(self):    # b. Hacer crecer el tronco 1 unidad.
         self.tronco += 1
-        print("El tronco ha crecido")
+        print("El tronco ha crecido 1 unidad")
 
-    def info_arbol(self):
-        # g. Devolver información
-        print("\nInformación del árbol:")
+    def nueva_rama(self):   # c. Agregar nueva rama de longitud 1 a la lista de ramas.
+        self.ramas.append(1)
+        print("Se ha agregado una nueva rama.")
+
+    def crecer_ramas(self):     # d. Crecen todas las ramas existentes en 1 unidad.
+        for i in range(len(self.ramas)):
+            self.ramas[i] += 1
+        print("Todas las ramas han crecido 1 unidad")
+
+    def quitar_rama(self, posicion):        # e. Eliminar rama en posición específica.
+        
+        try:
+            
+            eliminada = self.ramas.pop(posicion - 1)# Se pone la posición -1, ya que el usuario entenderá que la primera (posición 0) es la 1. 
+            print(f"Se ha retirado la rama que medía {eliminada}.")
+        except IndexError:
+            print("Error: Esa posición de rama no existe.")
+
+    def info_arbol(self): # Información sobre la longitud del tronco, el número de ramas y sus longitudes.
+        print("\nINFORMACÍON ACTUAL DEL ÁRBOL VIRTUAL:")
         print(f"Longitud del tronco: {self.tronco}")
+        print(f"Número de ramas: {len(self.ramas)}")
+        print(f"Longitudes: {self.ramas}")
 
 # Menú del usuario
 def menu():
-    mi_arbol = Arbol()  # a. Crear el árbol automáticamente al empezar
-    
+    mi_arbol = Arbol() #Creación del arból del usuario ('Vacío').
     while True:
-        print("\n¿Qué quieres hacer con el árbol?")
+        print("\n Opciones a realizar con el árbol virtual:")
         print("1. Hacer crecer el tronco")
         print("2. Añadir una nueva rama")
         print("3. Hacer crecer todas las ramas")
-        print("4. Retirar una rama")
-        print("5. Ver información del árbol")
+        print("4. Retirar una rama en una posición específica")
+        print("5. Ver información actual del árbol")
         print("6. Salir")
         
         opcion = input("Elige una opción (1-6): ")
-
         if opcion == "1":
             mi_arbol.crecer_tronco()
         elif opcion == "2":
@@ -636,19 +653,39 @@ def menu():
         elif opcion == "3":
             mi_arbol.crecer_ramas()
         elif opcion == "4":
-            mi_arbol.quitar_rama(pos)
+            try:
+                pos = int(input("¿Qué número de rama quieres quitar?: "))
+                mi_arbol.quitar_rama(pos)
+            except ValueError:
+                print("Por favor, introduce un número válido.")
         elif opcion == "5":
             mi_arbol.info_arbol()
         elif opcion == "6":
-            print("Gracias por plantar un arbol")
+            print("Gracias por plantar un arbol virtualmente")
             break
         else:
             print("Opción no válida.")
 
-# Ejecutar el programa
-menu()
+menu()# Ejecutar el programa
 
 
+'''
+
+#35- Crea la clase UsuarioBanco
+'''
+Representa a un usuario de un banco con su nombre, saldo y si tiene o no cuenta corriente.
+Métodos: retirar_dinero, transferir_dinero, agregar_dinero.
+Código a seguir:
+Inicializar un usuario con nombre, saldo y un indicador (True o False) de cuenta corriente.
+Implementar retirar_dinero para sustraer dinero del saldo, lanzando un error si no es posible.
+Implementar transferir_dinero para transferir dinero desde otro usuario, lanzando un error en caso de fallo.
+Implementar agregar_dinero para aumentar el saldo del usuario.
+Caso de uso:
+        a. Crear dos usuarios: "Alicia" con saldo inicial de 100 y "Bob" con saldo inicial de 50, ambos con cuenta corriente.
+        b. Agregar 20 unidades al saldo de Bob.
+        c. Transferir 80 unidades de Bob a Alicia.
+        d. Retirar 50 unidades del saldo de Alicia.
+'''
 
 
 
@@ -657,7 +694,7 @@ menu()
 
 
 '''
-Ejercicios comentados hasta aquí (para no tener que usar el input cada vez que lo ejecuto): 8, 11, 12, 31
+Ejercicios comentados hasta aquí (para no tener que usar el input cada vez que lo ejecuto): 8, 11, 12, 31, 34
 '''
 
 
