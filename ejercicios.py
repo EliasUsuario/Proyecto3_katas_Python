@@ -904,7 +904,11 @@ if tiene_cupon == "si":
     
     # d. Aplicar el descuento si es válido (mayor a 0) 
     if valor_cupon > 0:
-        precio_final = precio - valor_cupon
+        if valor_cupon >= precio:
+            print("El cupón cubre todo el coste. El artículo es gratis.") #Para evitar que salga negativo, si el cupón es superior al precio saldrá 0.
+            precio_final = 0
+        else:
+            precio_final = precio - valor_cupon
     else:
         print("Cupón no válido.")
         precio_final = precio
