@@ -580,9 +580,11 @@ print(f"Lista A: {lista_a}")
 print(f"Lista B: {lista_b}")
 print(f"Resultado de la suma: {lista_suma}")
 
-'''
+
+
 # 34-Crea la clase Arbol
-'''Define un árbol genérico con un tronco y ramas como atributos.
+"""
+Define un árbol genérico con un tronco y ramas como atributos.
 Métodos disponibles: crecer_tronco, nueva_rama, crecer_ramas, quitar_rama, info_arbol.
 Código a seguir:
 Inicializar un árbol con un tronco de longitud 1 y una lista vacía de ramas.
@@ -599,7 +601,7 @@ Caso de uso:
         e. Añadir dos nuevas ramas.
         f. Retirar la rama situada en la posición 2.
         g. Obtener información sobre el árbol.
-'''
+
 class Arbol:
     def __init__(self):     # a. Crear un árbol (Inicializar con tronco 1 y lista de ramas vacía).
         self.tronco = 1
@@ -667,12 +669,12 @@ def menu():
             print("Opción no válida.")
 
 menu()# Ejecutar el programa
+"""
 
 
-'''
 
 #35- Crea la clase UsuarioBanco
-'''
+"""
 Representa a un usuario de un banco con su nombre, saldo y si tiene o no cuenta corriente.
 Métodos: retirar_dinero, transferir_dinero, agregar_dinero.
 Código a seguir:
@@ -685,17 +687,239 @@ Caso de uso:
         b. Agregar 20 unidades al saldo de Bob.
         c. Transferir 80 unidades de Bob a Alicia.
         d. Retirar 50 unidades del saldo de Alicia.
-'''
+"""
+class UsuarioBanco:
+    def __init__(self, nombre, saldo_inicial, es_cliente): # a. Creación usuarios.
+        self.nombre = nombre
+        self.saldo = saldo_inicial
+        self.es_cliente = es_cliente
+
+    def agregar_dinero(self, cantidad): #Ingreso de dinero al saldo del usuario
+        if cantidad > 0:
+            self.saldo += cantidad
+            print(f"Se ha ingresado {cantidad} a {self.nombre}. Saldo actual: {self.saldo}")
+        else:
+            print("La cantidad a ingresar debe ser positiva.")
+
+    def retirar_dinero(self, cantidad): #Resta dinero del saldo, lanzando un error si no es posible.
+        if cantidad > self.saldo:# También se lanza una excepción si intenta sacar más de lo que tiene.
+            raise ValueError(f"Error: {self.nombre} no tiene saldo suficiente para retirar {cantidad}.")
+        self.saldo -= cantidad
+        print(f"{self.nombre} ha retirado {cantidad}. Saldo restante: {self.saldo}")
+
+    def transferir_dinero(self, otro_usuario, cantidad): #Transfiere dinero DESDE este usuario HACIA otro usuario.
+        print(f"Inicio de transferencia: {self.nombre} -> {otro_usuario.nombre} ({cantidad} unidades)")
+        
+        try:
+            self.retirar_dinero(cantidad)# Primero se intenta retirar el dinero de la cuenta origen
+            otro_usuario.agregar_dinero(cantidad)# Si el retiro tuvo éxito, se lo sumamos al otro usuario
+            print("Transferencia completada con éxito.")
+        except ValueError as e: # Si retirar_dinero falló, capturamos el error aquí (también lanza un error si el emisor no tiene fondos).
+            print(f"Fallo en la transferencia: {e}")
+
+# Caso de uso:
+# a. Crear usuarios
+alicia = UsuarioBanco("Alicia", 100, True)
+bob = UsuarioBanco("Bob", 50, True)
+
+# b. Agregar 20 unidades al saldo de Bob
+bob.agregar_dinero(20)
+
+# c. Transferir 80 unidades de Bob a Alicia
+# Nota: Bob tiene 50 + 20 = 70. Intentar transferir 80 lanzará un error.
+bob.transferir_dinero(alicia, 80)
+
+# d. Retirar 50 unidades del saldo de Alicia (Alicia sigue teniendo 100)
+alicia.retirar_dinero(50)
+
+
+# 36- Crea una función llamada procesar_texto
+"""
+Procesa un texto según la opción especificada: contar_palabras, reemplazar_palabras o eliminar_palabra.
+Código a seguir:
+Crear una función contar_palabras que cuente el número de veces que aparece cada palabra en el texto y devuelva un diccionario.
+Crear una función reemplazar_palabras para sustituir una palabra_original por una palabra_nueva en el texto y devolver el texto modificado.
+Crear una función eliminar_palabra que elimine una palabra del texto y devuelva el texto sin ella.
+Crear la función procesar_texto que reciba un texto, una opción ("contar", "reemplazar", "eliminar") y un número variable de argumentos según la opción elegida.
+Caso de uso:
+Verificar el funcionamiento completo de procesar_texto.
+"""
+
+def contar_palabras(texto):
+    palabras = texto.lower().split()
+    frecuencias = {}
+    
+    total_palabras = len(palabras)# Calculo del total de palabras.
+    
+    for p in palabras:
+        p = p.strip(",.¡!¿?;:-_")
+        if p: # Con esto se evita contar strings vacíos si hubiera signos sueltos.
+            frecuencias[p] = frecuencias.get(p, 0) + 1
+            
+    # Se devuelve un diccionario que contiene el desglose y el total.
+    return {
+        "Total de palabras": total_palabras,
+        "Frecuencia por palabra": frecuencias
+    }
+
+def reemplazar_palabras(texto, original, nueva): # Sustitución palabra original por nueva.
+    return texto.replace(original, nueva)
+
+def eliminar_palabra(texto, palabra_a_borrar): # Eliminación de una palabra específica (todas las que hayan).
+    palabras = texto.split()
+    resultado = [p for p in palabras if p.strip(",.¡!¿?").lower() != palabra_a_borrar.lower()] # Devolución del texto sin la palabra especificada.
+    return " ".join(resultado)
+
+
+def procesar_texto(texto, opcion, *args): # Función principal.
+    if opcion == "contar":
+        return contar_palabras(texto)
+    
+    elif opcion == "reemplazar":
+        return reemplazar_palabras(texto, args[0], args[1]) # args[0] es la vieja, args[1] es la nueva.
+    
+    elif opcion == "eliminar":
+        return eliminar_palabra(texto, args[0]) # args[0] es la palabra a eliminar
+    
+    else:
+        return "Opción no válida."
+
+#Caso de Uso:
+
+mi_texto = "Texto para contar, con una palabra a reemplazar y a eliminar "
+
+print(f"Texto original: {mi_texto}")
+
+# 1. Probar CONTAR
+print("\n1. Conteo de palabras:")
+print(procesar_texto(mi_texto, "contar"))
+
+# 2. Probar REEMPLAZAR
+print("\n2. Reemplazando 'reemplazar' por 'correcto':")
+print(procesar_texto(mi_texto, "reemplazar", "reemplazar", "correcto"))
+
+# 3. Probar ELIMINAR
+print("\n3. Eliminando la palabra 'palabra':")
+print(procesar_texto(mi_texto, "eliminar", "palabra"))
+
+
+#37- Genera un programa que nos indique si es de noche, de día o de tarde según la hora proporcionada por el usuario.
+"""
+# 1. Se pide la hora al usuario:
+hora = int(input("¿Qué hora es? (0-23): "))
+
+# 2. Se comprueba en qué tramo cae
+if 6 <= hora < 13:
+    print("Es de día")
+    
+elif 13 <= hora < 21:
+    print("Es de tarde")
+    
+else:
+    # Si no es ninguna de las anteriores (de 21 a 5), es de noche
+    print("Es de noche")
+"""
+
+
+#38- Escribe un programa que determine qué calificación en texto tiene un alumno según su calificación numérica.
+"""
+def obtener_calificacion_texto():
+    try:
+        # 1. Se pide la nota al usuario
+        nota = float(input("Introduce la nota del alumno (0-10): "))
+
+        # 2. Se valida el rango
+        if nota < 0 or nota > 10:
+            print("Error: La nota debe estar entre 0 y 10.")
+            return
+
+        # 3. Se evalúa la nota
+        if nota < 5:
+            resultado = "Suspenso"
+        elif nota < 7:
+            resultado = "Aprobado"
+        elif nota < 9:
+            resultado = "Notable"
+        elif nota == 10:
+            resultado = "Matrícula de Honor"
+        else:
+            # Si es entre 9 y 9.9
+            resultado = "Sobresaliente"
+
+        print(f"La calificación para un {nota} es: {resultado}")
+
+    except ValueError:
+        print("Error: Por favor, introduce un número válido.")
+
+# Ejecución
+obtener_calificacion_texto()
+"""
+
+#39- Escribe una función que tome dos parámetros: figura (una cadena que puede ser "rectangulo", "circulo" o "triangulo") 
+# y datos (una tupla con los datos necesarios para calcular el área de la figura).
+
+def calcular_area(figura, datos):
+    # 1. Si es un rectángulo: necesita (base y altura)
+    if figura == "rectangulo":
+        base = datos[0]
+        altura = datos[1]
+        return base * altura
+
+    # 2. Si es un círculo: necesita (radio)
+    elif figura == "circulo":
+        radio = datos[0]
+        return 3.14 * (radio ** 2)
+
+    # 3. Si es un triángulo: necesita (base, altura)
+    elif figura == "triangulo":
+        base = datos[0]
+        altura = datos[1]
+        return (base * altura) / 2
+
+#Pruebas:
+print("Área Rectángulo:", calcular_area("rectangulo", (15, 5)))
+print("Área Círculo:", calcular_area("circulo", (5,)))
+print("Área Triángulo:", calcular_area("triangulo", (10, 5)))
+
+
+#40- Escribe un programa en Python que utilice condicionales para determinar el monto final de una compra en una tienda en línea, después de aplicar un descuento. El programa debe:
+"""
+    a. Solicitar al usuario el precio original de un artículo.
+    b. Preguntar si tiene un cupón de descuento (respuesta sí o no).
+    c. Si la respuesta es sí, solicitar el valor del cupón de descuento.
+    d. Aplicar el descuento al precio original, siempre que el valor del cupón sea válido (mayor a cero).
+    e. Mostrar el precio final de la compra, considerando o no el descuento.
+    f. Usar estructuras de control de flujo (if, elif, else) para llevar a cabo las acciones.
+"""
+# a. Solicitar el precio original
+precio = float(input("Introduce el precio del artículo: "))
+
+# b. Preguntar si tiene cupón
+tiene_cupon = input("¿Tienes un cupón de descuento? (si/no): ").lower() #se convierte a minusculas (por si acaso).
+
+# Dependiendo de si tiene cupón o no:
+if tiene_cupon == "si":
+    # c. Solicitar el valor del cupón
+    valor_cupon = float(input("¿De cuánto es el descuento?: "))
+    
+    # d. Aplicar el descuento si es válido (mayor a 0) 
+    if valor_cupon > 0:
+        precio_final = precio - valor_cupon
+    else:
+        print("Cupón no válido.")
+        precio_final = precio
+else:
+    # Si no tiene cupón o dice "no"
+    precio_final = precio
+
+# e. Mostrar el precio final
+print(f"El monto final a pagar es: {precio_final}")
 
 
 
 
+# Ejercicios comentados hasta aquí (para no tener que usar el input cada vez que lo ejecuto): 8, 11, 12, 31, 34, 37, 38
 
-
-
-'''
-Ejercicios comentados hasta aquí (para no tener que usar el input cada vez que lo ejecuto): 8, 11, 12, 31, 34
-'''
 
 
 
