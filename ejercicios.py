@@ -117,7 +117,7 @@ lista_strings = list(resultado_iterador)# Se convierte el resultado a una lista 
 print(f"Lista de tuplas original: {datos}")
 print(f"Lista de strings resultante: {lista_strings}")
 
-'''
+
 #8- Escribe un programa que pida al usuario dos números e intente dividirlos. 
     # Si el usuario ingresa un valor no numérico o intenta dividir por cero, maneja esas excepciones de manera adecuada 
     # y muestra un mensaje indicando si la división fue exitosa o no.
@@ -144,7 +144,7 @@ def division_dos_numeros():
 
 # Ejecuto la función
 division_dos_numeros()
-'''
+
 #9- Escribe una función que tome una lista de nombres de mascotas como parámetro y devuelva 
     # una nueva lista excluyendo ciertas mascotas prohibidas en España. 
     # La lista de mascotas a excluir es ["Mapache", "Tigre", "Serpiente Pitón", "Cocodrilo", "Oso"]. 
@@ -183,7 +183,7 @@ for lista in listas_a_probar:
         print(f"El promedio es: {resultado}")
     except ListaVaciaError as e: # Capturo mi error personalizado y muestro el mensaje que definí arriba
         print(f"Error detectado: {e}")
-'''
+
 #11- Escribe un programa que pida al usuario que introduzca su edad. 
     # Si el usuario ingresa un valor no numérico o un valor fuera del rango esperado (por ejemplo, menor que 0 o mayor que 120), 
     # maneja las excepciones adecuadamente.
@@ -222,7 +222,6 @@ resultado = medir_palabras(texto)
 
 print(f"Frase original: '{texto}'")
 print(f"Longitudes: {resultado}")
-'''
 
 #13- Genera una función que, para un conjunto de caracteres, devuelva una lista de tuplas con cada letra en mayúsculas y minúsculas. 
     # Las letras no pueden estar repetidas. Usa la función map().
@@ -516,7 +515,6 @@ print(f"¿'Gato' y 'Gota' son anagramas?: {son_anagramas('Gato', 'Gota')}")
 print(f"¿'Parecido' y 'Diferente' son anagramas?: {son_anagramas('Parecido', 'Diferente')}")
 
 
-'''
 #31- Crea una función que solicite al usuario ingresar una lista de nombres y luego un nombre para buscar en esa lista.
     # Si el nombre está en la lista, imprime un mensaje indicando que fue encontrado; de lo contrario, lanza una excepción.
 
@@ -540,7 +538,7 @@ def buscar_nombre_en_lista():
 # Ejecución del programa
 buscar_nombre_en_lista()
 
-'''
+
 # 32-Crea una función que tome un nombre completo y una lista de empleados, busque el nombre en la lista y devuelva el puesto del empleado si se encuentra; 
     # de lo contrario, devuelve un mensaje indicando que la persona no trabaja aquí. 
     
@@ -601,7 +599,7 @@ Caso de uso:
         e. Añadir dos nuevas ramas.
         f. Retirar la rama situada en la posición 2.
         g. Obtener información sobre el árbol.
-
+"""
 class Arbol:
     def __init__(self):     # a. Crear un árbol (Inicializar con tronco 1 y lista de ramas vacía).
         self.tronco = 1
@@ -669,7 +667,7 @@ def menu():
             print("Opción no válida.")
 
 menu()# Ejecutar el programa
-"""
+
 
 
 
@@ -804,7 +802,7 @@ print(procesar_texto(mi_texto, "eliminar", "palabra"))
 
 
 #37- Genera un programa que nos indique si es de noche, de día o de tarde según la hora proporcionada por el usuario.
-"""
+
 # 1. Se pide la hora al usuario:
 hora = int(input("¿Qué hora es? (0-23): "))
 
@@ -818,11 +816,11 @@ elif 13 <= hora < 21:
 else:
     # Si no es ninguna de las anteriores (de 21 a 5), es de noche
     print("Es de noche")
-"""
+
 
 
 #38- Escribe un programa que determine qué calificación en texto tiene un alumno según su calificación numérica.
-"""
+
 def obtener_calificacion_texto():
     try:
         # 1. Se pide la nota al usuario
@@ -853,7 +851,7 @@ def obtener_calificacion_texto():
 
 # Ejecución
 obtener_calificacion_texto()
-"""
+
 
 #39- Escribe una función que tome dos parámetros: figura (una cadena que puede ser "rectangulo", "circulo" o "triangulo") 
 # y datos (una tupla con los datos necesarios para calcular el área de la figura).
